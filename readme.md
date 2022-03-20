@@ -14,10 +14,10 @@ CREATE DATABASE fastapi
 ```
 
 ```
-CREATE TABLE public.products
+CREATE TABLE public.posts
 (
-    name character varying NOT NULL,
-    price integer NOT NULL,
+    title character varying NOT NULL,
+    content character varying NOT NULL,
     id serial,
     PRIMARY KEY (id)
 );
