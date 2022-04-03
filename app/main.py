@@ -37,10 +37,6 @@ while True:
         time.sleep(2)
 
 
-my_posts = [{"title": "title of post 1", "content": "content of post 1", "id": 1}, \
-        {"title": "title of post 2", "content": "content of post 2", "id": 2}]
-
-
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
@@ -48,7 +44,9 @@ async def root():
 
 @app.get("/sqlalchemy")
 def test_posts(db: Session = Depends(get_db)):
-    return {"status": "success"}
+    posts = db.query(models.Post).all()
+    return {"data": posts}
+
 
 @app.get('/posts')
 def get_posts():
