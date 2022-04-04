@@ -6,6 +6,7 @@ from fastapi.params import Body
 from random import randrange
 from psycopg2.extras import RealDictCursor
 from sqlalchemy.orm import Session
+from typing import List
 from . import models, schemas
 from .database import engine, get_db
 
@@ -32,7 +33,7 @@ while True:
 async def root():
     return {"message": "Hello World"}
 
-@app.get('/posts')
+@app.get('/posts', response_model=List[schemas.PostResp])
 def get_posts(db: Session = Depends(get_db)):
     posts = db.query(models.Post).all()
     return posts
@@ -45,7 +46,7 @@ def create_posts(post: schemas.PostCreate, db: Session = Depends(get_db)):
     db.refresh(new_post)
     return new_post
 
-@app.get('/posts/{id}')
+@app.get('/posts/{id}', response_model=schemas.PostResp)
 def get_post(id: int, response: Response, db: Session = Depends(get_db)):
     post = db.query(models.Post).filter(models.Post.id == id).first()
     print(post)
@@ -66,7 +67,7 @@ def delete_post(id: int, db: Session = Depends(get_db)):
     db.commit()
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
-@app.put("/posts/{id}")
+@app.put("/posts/{id}", response_model=schemas.PostResp)
 def update_post(id: int, updated_post: schemas.PostCreate, db: Session = Depends(get_db)):
     post_query = db.query(models.Post).filter(models.Post.id == id)
     post = post_query.first()
@@ -78,3 +79,12 @@ def update_post(id: int, updated_post: schemas.PostCreate, db: Session = Depends
     db.commit()
 
     return post_query.first()
+
+@app.post('/users', status_code=status.HTTP_201_CREATED, response_model=schemas.UserOut)
+def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    new_user = models.User(**user.dict())
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+
+    return new_user
