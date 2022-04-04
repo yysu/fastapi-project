@@ -13,7 +13,8 @@ router = APIRouter(
 @router.get("/", response_model=List[schemas.PostResp])
 def get_posts(db: Session = Depends(get_db), 
         current_user: int = Depends(oauth2.get_current_user)):
-    posts = db.query(models.Post).filter(models.Post.owner_id == current_user.id).all()
+    #posts = db.query(models.Post).filter(models.Post.owner_id == current_user.id).all()
+    posts = db.query(models.Post).all()
     return posts
 
 
@@ -40,7 +41,7 @@ def get_post(id: int, response: Response, db: Session = Depends(get_db),
     
     if post.owner_id != current_user.id: 
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, 
-            detail="Not authorize to perform requested action")
+            detail="Not authorized to perform requested action")
     return post
 
 
@@ -57,7 +58,7 @@ def delete_post(id: int, db: Session = Depends(get_db),
     
     if post.owner_id != current_user.id: 
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, 
-            detail="Not authorize to perform requested action")
+            detail="Not authorized to perform requested action")
 
     post_query.delete(synchronize_session=False)
     db.commit()
@@ -76,7 +77,7 @@ def update_post(id: int, updated_post: schemas.PostCreate, db: Session = Depends
     
     if post.owner_id != current_user.id: 
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, 
-            detail="Not authorize to perform requested action")
+            detail="Not authorized to perform requested action")
 
     post_query.update(updated_post.dict(), synchronize_session=False)
     db.commit()
