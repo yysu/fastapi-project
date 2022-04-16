@@ -25,3 +25,5 @@ CREATE TABLE public.posts
 ALTER TABLE IF EXISTS public.products
     OWNER to postgres;
 ```
+
+## Heroku
