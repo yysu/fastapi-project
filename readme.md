@@ -1,5 +1,5 @@
 # FastAPI
-![cicd workflow](https://github.com/YYSU/fastapi-project/actions/workflows/main.yml/badge.svg)
+![cicd workflow](https://github.com/YYSU/fastapi-project/actions/workflows/build-deploy.yml/badge.svg)
 
 # Start server 
 ```
