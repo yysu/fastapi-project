@@ -7,7 +7,7 @@ from .route import post, user, auth, vote
 from .config import settings
 
 # Since we use Alembic, this is not required
-#models.Base.metadata.create_all(bind=engine)
+# models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
@@ -26,7 +26,7 @@ app.include_router(user.router)
 app.include_router(auth.router)
 app.include_router(vote.router)
 
+
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
-
+    return {"message": "Hello World. Welcome to FastAPI project"}
