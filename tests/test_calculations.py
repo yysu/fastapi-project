@@ -60,31 +60,16 @@ def test_add(num1, num2, expected):
     assert add(num1, num2) == expected
 
 
-@pytest.mark.parametrize("num1, num2, expected", [
-    (3, 2, 1),
-    (7, 1, 6),
-    (4, 12, -8)
-])
-def test_subtract(num1, num2, expected):
-    assert subtract(num1, num2) == expected
+def test_subtract():
+    assert subtract(9, 4) == 5
 
 
-@pytest.mark.parametrize("num1, num2, expected", [
-    (3, 2, 6),
-    (7, 1, 7),
-    (4, -12, -48)
-])
-def test_multiply(num1, num2, expected):
-    assert multiply(num1, num2) == expected
+def test_multiply():
+    assert multiply(4, 3) == 12
 
 
-@pytest.mark.parametrize("num1, num2, expected", [
-    (3, 2, 1),
-    (7, 1, 7),
-    (4, 12, 0)
-])
-def test_divde(num1, num2, expected):
-    assert num1//num2 == expected
+def test_divde():
+    assert divide(20, 5) == 4
 
 
 def test_bank_set_initial_amount(bank_account):
