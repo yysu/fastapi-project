@@ -7,3 +7,8 @@ $ uvicorn main:app --reload
 ```
 
 ## Heroku
+https://fastapi-jimsu.herokuapp.com/
+
+
+## Credit
+https://github.com/Sanjeev-Thiyagarajan/fastapi-course
